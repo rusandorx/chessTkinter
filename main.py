@@ -53,7 +53,7 @@ def main():
                     rest = list(map(lambda x: int(x) - 1, rest))
                 else:
                     rest = list(map(lambda x: int(x) - 1, rest[:-1]))
-                    rest.append(INPUT[-1])
+                    rest.append(INPUT[-1].upper())
                 if len(rest) == 5 and action == 'promote':
                     if not board.move_and_promote_pawn(*rest):
                         wrong_move_text()
