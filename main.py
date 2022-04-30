@@ -66,7 +66,6 @@ def main():
                     wrong_move_text()
                     return
             drawBoard(board)
-            drawBoard(board)
             print('Ход:', action, *INPUT[1:])
             Output.delete(0.0, END)
             Output.insert(END, 'Ход совершен')
