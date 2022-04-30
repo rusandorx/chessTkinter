@@ -116,6 +116,8 @@ class Board:
         if row == row1 and col == col1:
             return False  # нельзя пойти в ту же клетку
         piece = self.field[row][col]
+        if isinstance(piece, Pawn) and (row1 == 7 or row1 == 0):
+            return False
         if piece is None:
             return False
         if piece.get_color() != self.color:
@@ -226,6 +228,9 @@ class Figure:
     def can_attack(self, board, row, col, row1, col1):
         return self.can_move(board, row, col, row1, col1)
 
+    def get_image(self):
+        return f'Icons/{"Black" if self.color == BLACK else "White"}/{self.character}.png'
+
 
 class Rook(Figure):
 
@@ -301,8 +306,6 @@ class Pawn(Figure):
 
 
 class Knight(Figure):
-    '''Класс коня. Пока что заглушка, которая может ходить в любую клетку.'''
-
     def __init__(self, color):
         super().__init__(color)
         self.character = 'N'
@@ -316,8 +319,6 @@ class Knight(Figure):
 
 
 class King(Figure):
-    '''Класс короля. Пока что заглушка, которая может ходить в любую клетку.'''
-
     def __init__(self, color):
         super().__init__(color)
         self.character = 'K'
@@ -335,8 +336,6 @@ class King(Figure):
 
 
 class Queen(Figure):
-    '''Класс ферзя. Пока что заглушка, которая может ходить в любую клетку.'''
-
     def __init__(self, color):
         super().__init__(color)
         self.character = 'Q'
@@ -369,8 +368,6 @@ class Queen(Figure):
 
 
 class Bishop(Figure):
-    '''Класс слона. Пока что заглушка, которая может ходить в любую клетку.'''
-
     def __init__(self, color):
         super().__init__(color)
         self.character = 'B'
