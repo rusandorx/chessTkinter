@@ -229,7 +229,7 @@ class Figure:
         return self.can_move(board, row, col, row1, col1)
 
     def get_image(self):
-        return f'Icons/{"Black" if self.color == BLACK else "White"}/{self.character}.png'
+        return f'Icons/{"Black" if self.color == BLACK else "White"}/{self.character.lower()}.png'
 
 
 class Rook(Figure):
