@@ -135,6 +135,14 @@ class Board:
         self.color = opponent(self.color)
         return True
 
+    def winner(self):
+        if all(p is None or isinstance(p, King) for row in self.field for p in row):
+            return 'Equal'
+        if all(not isinstance(p, King) or p.get_color() != WHITE for row in self.field for p in row):
+            return BLACK
+        if all(not isinstance(p, King) or p.get_color() != BLACK for row in self.field for p in row):
+            return WHITE
+
     def move_and_promote_pawn(self, row, col, row1, col1, char):
         if not correct_coords(row, col) or not correct_coords(row1, col1):
             return False

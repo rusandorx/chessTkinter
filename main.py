@@ -1,7 +1,7 @@
 import tkinter
 from tkinter import Button, Label, Text, END
 
-from ChessLib import Board
+from ChessLib import Board, BLACK
 
 
 def main():
@@ -70,6 +70,13 @@ def main():
             print('Ход:', action, *INPUT[1:])
             Output.delete(0.0, END)
             Output.insert(END, 'Ход совершен')
+            if res := board.winner():
+                Output.delete(0.0, END)
+                if res == 'Equal':
+                    Output.insert(END, 'Ничья')
+                else:
+                    Output.insert(END, 'Черные победили' if res == BLACK else 'Белые победили')
+                    inputtxt.destroy()
         except ValueError:
             wrong_move_text()
             return
