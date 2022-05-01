@@ -9,13 +9,13 @@ def main():
         canvas.delete('all')
         temp = True
         for x in range(0, 600, 75):
-            for y in range(0, 700, 75):
+            for y in range(0, 600, 75):
                 canvas.create_rectangle(x, y, x + 75, y + 75, fill='#eeeed2' if temp else '#769656')
                 temp = not temp
             temp = not temp
-        for i, x in enumerate(range(526, 0, -75)):
+        for i, x in enumerate(range(0, 600, 75)):
             for j, y in enumerate(range(0, 600, 75)):
-                piece = board.field[i][j]
+                piece = board.field[7 - i][j]
                 if piece:
                     my_img = tkinter.PhotoImage(file=piece.get_image())
                     my_img.img = my_img
@@ -23,7 +23,6 @@ def main():
                     resized_img = my_img.subsample(8, 8)
                     resized_img.img = resized_img
                     canvas.create_image(y + 5, x + 5, image=resized_img, anchor='nw')
-        canvas.pack()
 
     canvas_width, canvas_height = 600, 600
     master = tkinter.Tk()
@@ -31,10 +30,14 @@ def main():
     board = Board()
     drawBoard(board)
     drawBoard(board)
+    canvas.pack()
+    canvas.pack()
 
     def Take_input():
         INPUT = inputtxt.get("1.0", "end-1c").split()
         try:
+            if not INPUT:
+                raise ValueError
             action = INPUT[0]
             if len(INPUT) == 1:
                 if action == 'exit':
@@ -66,6 +69,9 @@ def main():
                     wrong_move_text()
                     return
             drawBoard(board)
+            drawBoard(board)
+            canvas.pack()
+            canvas.pack()
             print('Ход:', action, *INPUT[1:])
             Output.delete(0.0, END)
             Output.insert(END, 'Ход совершен')
