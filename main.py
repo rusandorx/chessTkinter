@@ -6,7 +6,6 @@ from ChessLib import Board, BLACK
 
 def main():
     def drawBoard(board):
-        canvas.delete('all')
         temp = True
         for x in range(0, 600, 75):
             for y in range(0, 600, 75):
@@ -28,10 +27,6 @@ def main():
     master = tkinter.Tk()
     canvas = tkinter.Canvas(master, bg='white', height=canvas_height, width=canvas_width)
     board = Board()
-    drawBoard(board)
-    drawBoard(board)
-    canvas.pack()
-    canvas.pack()
 
     def Take_input():
         INPUT = inputtxt.get("1.0", "end-1c").split()
@@ -68,10 +63,6 @@ def main():
                 else:
                     wrong_move_text()
                     return
-            drawBoard(board)
-            drawBoard(board)
-            canvas.pack()
-            canvas.pack()
             print('Ход:', action, *INPUT[1:])
             Output.delete(0.0, END)
             Output.insert(END, 'Ход совершен')
@@ -85,6 +76,9 @@ def main():
         except ValueError:
             wrong_move_text()
             return
+        finally:
+            drawBoard(board)
+            drawBoard(board)
 
     def wrong_move_text():
         Output.delete(0.0, END)
@@ -111,7 +105,15 @@ def main():
                      width=20,
                      text="Подтвердить ход",
                      command=lambda: Take_input())
+    b = Button(master, height=2,
+               width=40,
+               text="Нажми на меня если фигуры пропали",
+               command=lambda: drawBoard(board))
 
+    canvas.pack()
+    drawBoard(board)
+    drawBoard(board)
+    b.pack()
     l.pack()
     inputtxt.pack()
     Display.pack()

@@ -188,7 +188,7 @@ class Board:
         king = self.field[coords[1][0]][coords[1][1]]
         if not self.castle_check(king, rook):
             return False
-        if not rook.can_move(self, coords[0][0], 0, coords[1][0], 3):
+        if not rook.can_move(self, coords[0][0], 0, coords[1][0], 4):
             return False
 
         self.field[coords[0][0]][coords[0][1]] = None
@@ -258,13 +258,13 @@ class Rook(Figure):
 
         step = 1 if (row1 >= row) else -1
         for r in range(row + step, row1, step):
-            # Если на пути по горизонтали есть фигура
+            # Если на пути по вертикали есть фигура
             if not (board.get_piece(r, col) is None):
                 return False
 
         step = 1 if (col1 >= col) else -1
         for c in range(col + step, col1, step):
-            # Если на пути по вертикали есть фигура
+            # Если на пути по горизонтали есть фигура
             if not (board.get_piece(row, c) is None):
                 return False
         self.moved = True
@@ -384,7 +384,7 @@ class Bishop(Figure):
         return self.color
 
     def can_move(self, board, row, col, row1, col1):
-        if not (abs(row - row1) == abs(col - col1) or row == row1 or col == col1):
+        if not (abs(row - row1) == abs(col - col1)):
             return False
 
         if row != row1:
